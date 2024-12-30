@@ -7,9 +7,18 @@ const OrganizationList = () => {
   const [organizations, setOrganizations] = useState([]);
 
   useEffect(() => {
-    // Load organizations from localStorage, if available
-    const storedOrganizations = JSON.parse(localStorage.getItem('organizations')) || [];
-    setOrganizations(storedOrganizations);
+    // Fetch organizations from the backend API
+    axios.get('http://localhost:5001/api/organizations')
+      .then(response => {
+        setOrganizations(response.data);
+        localStorage.setItem('organizations', JSON.stringify(response.data));
+      })
+      .catch(error => {
+        console.error('Error fetching organizations:', error);
+        // Fallback to localStorage if the API fails
+        const storedOrganizations = JSON.parse(localStorage.getItem('organizations')) || [];
+        setOrganizations(storedOrganizations);
+      });
   }, []);
 
   const addOrganization = () => {
@@ -20,7 +29,7 @@ const OrganizationList = () => {
     if (name && email && location) {
       // Optimistic UI update: immediately add the new org to the top
       const newOrg = {
-        id: organizations.length + 1, // This will be updated by backend, but we're just adding locally for now
+        id: organizations.length + 1, // Temporary ID
         name,
         email,
         location,
@@ -28,8 +37,6 @@ const OrganizationList = () => {
       };
       const updatedOrganizations = [newOrg, ...organizations];
       setOrganizations(updatedOrganizations);
-      
-      // Save organizations to localStorage
       localStorage.setItem('organizations', JSON.stringify(updatedOrganizations));
 
       // Make the POST request to the backend to save the new organization
@@ -46,8 +53,9 @@ const OrganizationList = () => {
         .catch(error => {
           console.error('Error adding organization:', error);
           // Revert the optimistic update if the API request fails
-          setOrganizations(organizations);
-          localStorage.setItem('organizations', JSON.stringify(organizations));
+          const revertedOrganizations = organizations.filter(org => org.id !== newOrg.id);
+          setOrganizations(revertedOrganizations);
+          localStorage.setItem('organizations', JSON.stringify(revertedOrganizations));
         });
     }
   };

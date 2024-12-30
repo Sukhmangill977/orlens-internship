@@ -20,7 +20,7 @@ let organizations = [
         id: 1,
         name: "Team A",
         members: [
-          { id: 1, name: "Member 1", image: null },
+          { id: 1, name: "Member 1", image: "image2.jpg" },
           { id: 2, name: "Member 2", image: "image2.jpg" }
         ]
       },
@@ -28,7 +28,7 @@ let organizations = [
         id: 2,
         name: "Team B",
         members: [
-          { id: 3, name: "Member 3", image: null },
+          { id: 3, name: "Member 3", image: "image2.jpg"},
           { id: 4, name: "Member 4", image: "image4.jpg" }
         ]
       }

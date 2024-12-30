@@ -1,19 +1,22 @@
 import React from 'react';
 
 const FileUpload = ({ onUpload }) => {
-  const handleFileChange = (e) => {
-    const file = e.target.files[0];
-    if (file) {
-      onUpload(file); // Pass the file object (not just the name) to parent
+  const handleFileChange = (event) => {
+    if (event.target.files[0]) {
+      onUpload(event.target.files[0]);
     }
   };
 
   return (
-    <input
-      type="file"
-      accept="image/*" // Only allow image files
-      onChange={handleFileChange}
-    />
+    <label style={{ cursor: 'pointer', color: 'blue', textDecoration: 'underline' }}>
+      Upload File
+      <input
+        type="file"
+        style={{ display: 'none' }}
+        accept="*/*" // Accept all file types
+        onChange={handleFileChange}
+      />
+    </label>
   );
 };
 
