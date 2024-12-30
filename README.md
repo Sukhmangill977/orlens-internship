@@ -1,4 +1,4 @@
-# orlens-internship
+# oralens-internship
  
 # Organization and Team Management Web Application
 
