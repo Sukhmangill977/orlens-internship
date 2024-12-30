@@ -1,4 +1,4 @@
-# orlens-internship
+# oralens-internship
  
 # Organization and Team Management Web Application
 
@@ -23,9 +23,6 @@ A web application to manage organizations, teams, and individuals, allowing user
 4. **API Endpoints:**
    - Fetch all organization records in JSON format.
    - Add, update, and delete organizations through the REST API.
-
-5. **Optional Bonus:**
-   - Deployed on Render for free hosting.
 
 ---
 
