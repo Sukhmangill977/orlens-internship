@@ -24,9 +24,6 @@ A web application to manage organizations, teams, and individuals, allowing user
    - Fetch all organization records in JSON format.
    - Add, update, and delete organizations through the REST API.
 
-5. **Optional Bonus:**
-   - Deployed on Render for free hosting.
-
 ---
 
 ## Project Structure
