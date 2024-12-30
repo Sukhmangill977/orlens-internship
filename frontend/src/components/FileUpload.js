@@ -4,12 +4,16 @@ const FileUpload = ({ onUpload }) => {
   const handleFileChange = (e) => {
     const file = e.target.files[0];
     if (file) {
-      onUpload(file.name); // Pass file name to parent
+      onUpload(file); // Pass the file object (not just the name) to parent
     }
   };
 
   return (
-    <input type="file" onChange={handleFileChange} />
+    <input
+      type="file"
+      accept="image/*" // Only allow image files
+      onChange={handleFileChange}
+    />
   );
 };
 

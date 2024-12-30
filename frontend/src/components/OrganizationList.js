@@ -1,20 +1,15 @@
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
-import TeamList from './TeamList';
+import TeamList from './TeamList'; // Ensure TeamList is imported
 import './OrganizationList.css'; // Import the beautified CSS file
 
 const OrganizationList = () => {
   const [organizations, setOrganizations] = useState([]);
 
   useEffect(() => {
-    // Fetch organizations from the backend API
-    axios.get('http://localhost:5001/api/organizations')
-      .then(response => {
-        setOrganizations(response.data);
-      })
-      .catch(error => {
-        console.error('Error fetching organizations:', error);
-      });
+    // Load organizations from localStorage, if available
+    const storedOrganizations = JSON.parse(localStorage.getItem('organizations')) || [];
+    setOrganizations(storedOrganizations);
   }, []);
 
   const addOrganization = () => {
@@ -26,26 +21,33 @@ const OrganizationList = () => {
       // Optimistic UI update: immediately add the new org to the top
       const newOrg = {
         id: organizations.length + 1, // This will be updated by backend, but we're just adding locally for now
-        name: name || 'Organization', // Default name "Organization"
+        name,
         email,
         location,
         teams: []
       };
-      setOrganizations((prevOrgs) => [newOrg, ...prevOrgs]); // Add new org at the top
+      const updatedOrganizations = [newOrg, ...organizations];
+      setOrganizations(updatedOrganizations);
+      
+      // Save organizations to localStorage
+      localStorage.setItem('organizations', JSON.stringify(updatedOrganizations));
 
-      // Now make the POST request to the backend
+      // Make the POST request to the backend to save the new organization
       axios.post('http://localhost:5001/api/organizations', { name, email, location })
         .then(response => {
-          // On success, update the organization's ID from the backend response
-          const updatedOrganizations = organizations.map(org => 
-            org.id === newOrg.id ? { ...org, id: response.data.id } : org
+          const orgWithId = { ...newOrg, id: response.data.id };
+          // Update organizations list with backend ID
+          const finalOrganizations = updatedOrganizations.map(org =>
+            org.id === newOrg.id ? orgWithId : org
           );
-          setOrganizations(updatedOrganizations);
+          setOrganizations(finalOrganizations);
+          localStorage.setItem('organizations', JSON.stringify(finalOrganizations));
         })
         .catch(error => {
           console.error('Error adding organization:', error);
           // Revert the optimistic update if the API request fails
-          setOrganizations((prevOrgs) => prevOrgs.filter(org => org.id !== newOrg.id));
+          setOrganizations(organizations);
+          localStorage.setItem('organizations', JSON.stringify(organizations));
         });
     }
   };
@@ -53,7 +55,9 @@ const OrganizationList = () => {
   const deleteOrganization = (id) => {
     if (window.confirm("Are you sure you want to delete this organization?")) {
       // Optimistic UI update: Remove the organization immediately from the list
-      setOrganizations(prevOrgs => prevOrgs.filter(org => org.id !== id));
+      const updatedOrganizations = organizations.filter(org => org.id !== id);
+      setOrganizations(updatedOrganizations);
+      localStorage.setItem('organizations', JSON.stringify(updatedOrganizations));
 
       // Send DELETE request to backend
       axios.delete(`http://localhost:5001/api/organizations/${id}`)
@@ -63,7 +67,10 @@ const OrganizationList = () => {
         .catch(error => {
           console.error('Error deleting organization:', error);
           // Revert the optimistic update if the API request fails
-          setOrganizations(prevOrgs => [...prevOrgs, organizations.find(org => org.id === id)]);
+          const orgToRevert = organizations.find(org => org.id === id);
+          const revertOrganizations = [...updatedOrganizations, orgToRevert];
+          setOrganizations(revertOrganizations);
+          localStorage.setItem('organizations', JSON.stringify(revertOrganizations));
         });
     }
   };
@@ -78,13 +85,17 @@ const OrganizationList = () => {
             <div className="organization-info">
               <strong>{org.name}</strong> - {org.email} ({org.location})
             </div>
-            <TeamList teams={org.teams} orgIndex={organizations.indexOf(org)} setOrganizations={setOrganizations} />
-            {/* <button
+            <TeamList
+              teams={org.teams}
+              orgIndex={organizations.indexOf(org)}
+              setOrganizations={setOrganizations}
+            />
+            <button
               className="delete-org-button"
               onClick={() => deleteOrganization(org.id)}
             >
               Delete
-            </button> */}
+            </button>
           </li>
         ))}
       </ul>
