@@ -8,7 +8,7 @@ const OrganizationList = () => {
 
   useEffect(() => {
     // Fetch organizations from the backend API
-    axios.get('http://localhost:5001/api/organizations')
+    axios.get('https://oralens-internship.onrender.com/api/organizations')
       .then(response => {
         setOrganizations(response.data);
         localStorage.setItem('organizations', JSON.stringify(response.data));
@@ -40,7 +40,7 @@ const OrganizationList = () => {
       localStorage.setItem('organizations', JSON.stringify(updatedOrganizations));
 
       // Make the POST request to the backend to save the new organization
-      axios.post('http://localhost:5001/api/organizations', { name, email, location })
+      axios.post('https://oralens-internship.onrender.com/api/organizations', { name, email, location })
         .then(response => {
           const orgWithId = { ...newOrg, id: response.data.id };
           // Update organizations list with backend ID
@@ -68,7 +68,7 @@ const OrganizationList = () => {
       localStorage.setItem('organizations', JSON.stringify(updatedOrganizations));
 
       // Send DELETE request to backend
-      axios.delete(`http://localhost:5001/api/organizations/${id}`)
+      axios.delete(`https://oralens-internship.onrender.com/api/organizations/${id}`)
         .then(() => {
           console.log("Organization deleted successfully");
         })
