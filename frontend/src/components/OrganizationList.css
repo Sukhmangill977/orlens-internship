@@ -8,7 +8,7 @@
 
 /* Page Container */
 .organization-list-container {
-  background: linear-gradient(135deg, #4B79A1, #283E51); /* Refined gradient background */
+  background: linear-gradient(135deg, #4B79A1, #283E51);
   padding: 30px;
   min-height: 100vh;
   display: flex;
@@ -16,7 +16,7 @@
   align-items: center;
   justify-content: flex-start;
   color: rgb(0, 0, 0);
-  overflow-x: hidden; /* Prevent horizontal overflow */
+  overflow-x: hidden;
 }
 
 /* Title */
@@ -27,17 +27,16 @@
   text-align: center;
   text-transform: uppercase;
   letter-spacing: 1px;
-  word-wrap: break-word; /* Prevent title overflow */
+  word-wrap: break-word;
 }
 
 /* Add Organization Button */
 button {
-  background-color: #2E8B57; /* Modern green */
+  background-color: #2E8B57;
   color: white;
   font-size: 1.2rem;
   padding: 12px 25px;
   border: none;
-  border-radius: 8px;
   cursor: pointer;
   margin-bottom: 20px;
   box-shadow: 0 6px 15px rgba(0, 0, 0, 0.15);
@@ -45,9 +44,10 @@ button {
 }
 
 button:hover {
-  background-color: #228B22; /* Darker green */
+  background-color: #228B22;
   transform: translateY(-3px);
   box-shadow: 0 8px 18px rgba(0, 0, 0, 0.2);
+  text-decoration: underline; /* Add underline on hover */
 }
 
 button:focus {
@@ -65,7 +65,6 @@ ul {
 
 li {
   background-color: #fff;
-  border-radius: 12px;
   padding: 20px;
   margin-bottom: 20px;
   box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
@@ -84,9 +83,10 @@ li:hover {
 /* Organization Name */
 li strong {
   font-size: 1.6rem;
-  color: #2E8B57; /* Green */
+  color: #2E8B57;
   text-transform: capitalize;
   font-weight: 500;
+  text-decoration: underline; /* Underline organization names */
 }
 
 /* Organization Details */
@@ -96,12 +96,27 @@ li span {
   margin-left: 12px;
 }
 
+/* Delete Button */
+.delete-btn {
+  font-weight: bold;
+  color: white;
+  background-color: #FF5733; /* Red delete button */
+  padding: 10px 20px;
+  border: none;
+  cursor: pointer;
+  transition: all 0.3s ease;
+}
+
+.delete-btn:hover {
+  background-color: #C0392B; /* Darker red */
+  text-decoration: underline; /* Underline on hover */
+}
+
 /* Team Container */
 ul li .team-container {
   margin-top: 20px;
   padding: 12px;
   background-color: #f9f9f9;
-  border-radius: 10px;
   box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
   transition: all 0.3s ease;
   width: 100%;
@@ -142,19 +157,6 @@ ul li .team-container ul li:hover {
 
 /* Responsive Styles */
 @media (max-width: 1024px) {
-  .organization-list-container {
-    padding: 20px;
-  }
-
-  .organization-list-container h2 {
-    font-size: 2.4rem;
-  }
-
-  button {
-    font-size: 1.1rem;
-    padding: 10px 20px;
-  }
-
   ul {
     width: 90%;
   }
@@ -162,35 +164,9 @@ ul li .team-container ul li:hover {
   li {
     padding: 18px;
   }
-
-  li strong {
-    font-size: 1.5rem;
-  }
-
-  li span {
-    font-size: 0.95rem;
-  }
-
-  .team-container {
-    margin-top: 15px;
-    padding: 10px;
-  }
 }
 
 @media (max-width: 768px) {
-  .organization-list-container {
-    padding: 20px;
-  }
-
-  .organization-list-container h2 {
-    font-size: 2rem;
-  }
-
-  button {
-    font-size: 1rem;
-    padding: 10px 20px;
-  }
-
   ul {
     width: 100%;
   }
@@ -199,64 +175,15 @@ ul li .team-container ul li:hover {
     flex-direction: column;
     align-items: flex-start;
     padding: 15px;
-  }
-
-  li strong {
-    font-size: 1.4rem;
-  }
-
-  li span {
-    font-size: 0.9rem;
-    margin-left: 0;
-  }
-
-  .team-container {
-    margin-top: 12px;
-    padding: 8px;
   }
 }
 
 @media (max-width: 480px) {
-  .organization-list-container {
-    padding: 15px;
-  }
-
-  .organization-list-container h2 {
-    font-size: 1.8rem;
-  }
-
-  button {
-    font-size: 0.9rem;
-    padding: 8px 15px;
-  }
-
   ul {
     width: 100%;
   }
 
   li {
-    flex-direction: column;
-    align-items: flex-start;
     padding: 12px;
-  }
-
-  li strong {
-    font-size: 1.2rem;
-  }
-
-  li span {
-    font-size: 0.8rem;
-    margin-left: 0;
-  }
-
-  .team-container {
-    margin-top: 10px;
-    padding: 6px;
-  }
-
-  /* Prevent overflow for small screens */
-  .team-container ul {
-    padding-left: 0;
-    margin-left: 0;
   }
 }

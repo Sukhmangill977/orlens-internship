@@ -13,23 +13,23 @@ let organizations = [
   {
     id: 1,
     name: "Organization 1",
-    email: "Paris@example.com",
+    email: "org1paris@example.com",
     location: "Paris",
     teams: [
       {
         id: 1,
         name: "Team A",
         members: [
-          { id: 1, name: "Mem 1", image: "image2.jpg" },
-          { id: 2, name: "Mem 2", image: "image2.jpg" }
+          { "id": 1, "name": "Mem 1", "image": "https://i.pinimg.com/736x/e3/5f/be/e35fbe9bf0cd65dbf71d150783118b8d.jpg" },
+          { id: 2, name: "Member 2", image: "image2.jpg" }
         ]
       },
       {
         id: 2,
         name: "Team B",
         members: [
-          { id: 3, name: "Mem 3", image: "image2.jpg"},
-          { id: 4, name: "Mem 4", image: "image4.jpg" }
+          { "id": 3, "name": "Mem 3", "image": "https://i.pinimg.com/736x/15/81/84/158184c68f5164cd3c77bf798d96a727.jpg" },
+          { id: 4, name: "Member 4", image: "image4.jpg" }
         ]
       }
     ]
